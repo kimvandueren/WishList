@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">WishList</string>
+
+    <!--Tab bar-->
+    <string name="tab_lists">Lists</string>
+    <string name="tab_friends">Friends</string>
+    <string name="tab_profile">Profile</string>
+
+    <!--Page titles-->
+    <string name="create_a_list">Create a list</string>
+    <string name="add_a_friend">Add a friend</string>
+    <string name="profile">Profile</string>
+</resources>
