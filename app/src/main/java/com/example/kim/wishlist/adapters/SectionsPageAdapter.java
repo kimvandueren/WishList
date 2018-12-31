@@ -1,4 +1,4 @@
-package com.example.kim.wishlist;
+package com.example.kim.wishlist.adapters;
 
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -12,6 +12,7 @@ public class SectionsPageAdapter extends FragmentPagerAdapter {
     private final List<Fragment> mFragmentList = new ArrayList<>();
     private final List<String> mFragmentTitleList = new ArrayList<>();
 
+    // Method to add fragments to list
     public void addFragment(Fragment fragment, String title){
         mFragmentList.add(fragment);
         mFragmentTitleList.add(title);

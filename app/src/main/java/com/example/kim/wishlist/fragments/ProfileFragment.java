@@ -1,4 +1,4 @@
-package com.example.kim.wishlist;
+package com.example.kim.wishlist.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -7,6 +7,8 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.example.kim.wishlist.R;
 
 public class ProfileFragment extends Fragment {
     private static final String TAG = "Profile";

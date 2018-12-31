@@ -10,4 +10,12 @@
     <string name="create_a_list">Create a list</string>
     <string name="add_a_friend">Add a friend</string>
     <string name="profile">Profile</string>
+
+    <!--Menu items-->
+    <string name="menu_add_list">Create a list</string>
+
+    <!--Add list strings-->
+    <string name="title_string">Title</string>
+    <string name="add_item_string">Add items</string>
+
 </resources>
