@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 
 import com.example.kim.wishlist.R;
 import com.example.kim.wishlist.activities.AddListActivity;
+import com.example.kim.wishlist.activities.MainActivity;
 import com.example.kim.wishlist.adapters.WishlistAdapter;
 import com.example.kim.wishlist.models.Wishlist;
 
@@ -46,8 +47,6 @@ public class ListsFragment extends Fragment {
         linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         mRecyclerView.setLayoutManager(linearLayoutManager);
 
-        receiveData(REQUESTCODE, AddListActivity.RESULT_OK, getActivity().getIntent());
-
         return view;
     }
 
@@ -69,6 +68,22 @@ public class ListsFragment extends Fragment {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    private void updateUI(){
+        if(wishlistAdapter == null){
+            wishlistAdapter = new WishlistAdapter(getActivity(), wishlists);
+            mRecyclerView.setAdapter(wishlistAdapter);
+        } else {
+            wishlistAdapter.notifyDataSetChanged();
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        this.receiveData(REQUESTCODE, AddListActivity.RESULT_OK, getActivity().getIntent());
+        //updateUI();
     }
 
     public void receiveData(int requestCode, int resultCode, Intent data) {
