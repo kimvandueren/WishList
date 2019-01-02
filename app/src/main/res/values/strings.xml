@@ -13,9 +13,13 @@
 
     <!--Menu items-->
     <string name="menu_add_list">Create a list</string>
+    <string name="menu_save_list">Save</string>
 
     <!--Add list strings-->
     <string name="title_string">Title</string>
     <string name="add_item_string">Add items</string>
+
+    <!--Others-->
+    <string name="list_count"> lists</string>
 
 </resources>
