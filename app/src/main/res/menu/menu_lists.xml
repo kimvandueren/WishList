@@ -4,8 +4,8 @@
 
     <item
         android:id="@+id/action_add"
+        android:icon="@mipmap/ic_add_white_48dp"
         android:title="@string/menu_add_list"
-        app:showAsAction="always"
-        />
+        app:showAsAction="always" />
 
 </menu>

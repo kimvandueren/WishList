@@ -6,4 +6,9 @@
     <dimen name="H6">20dp</dimen>
     <dimen name="Body">16dp</dimen>
 
+    <!-- Icons. -->
+    <dimen name="IconLarge">40dp</dimen>
+    <dimen name="IconMedium">24dp</dimen>
+    <dimen name="IconSmall">16dp</dimen>
+
 </resources>
