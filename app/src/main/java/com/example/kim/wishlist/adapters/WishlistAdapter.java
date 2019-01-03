@@ -33,7 +33,7 @@ public class WishlistAdapter extends RecyclerView.Adapter<WishlistViewHolder> {
     public void onBindViewHolder(@NonNull WishlistViewHolder holder, int i) {
         final Wishlist wishlist = wishlists.get(i);
         holder.listTitle.setText(wishlist.getmWishListTitle());
-        holder.listCount.setText(wishlist.getWishlistItems().size() + R.string.list_count);
+        holder.listCount.setText(context.getResources().getString(R.string.item_count, wishlist.getWishlistItems().size()));
     }
 
     @Override

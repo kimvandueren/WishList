@@ -47,6 +47,8 @@ public class ListsFragment extends Fragment {
         linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         mRecyclerView.setLayoutManager(linearLayoutManager);
 
+        updateUI();
+
         return view;
     }
 
@@ -80,17 +82,13 @@ public class ListsFragment extends Fragment {
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-        this.receiveData(REQUESTCODE, AddListActivity.RESULT_OK, getActivity().getIntent());
-        //updateUI();
-    }
-
-    public void receiveData(int requestCode, int resultCode, Intent data) {
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUESTCODE){
-            if (resultCode == AddListActivity.RESULT_OK){
+            if (resultCode == AddListActivity.RESULT_OK) {
                 Wishlist newList = data.getParcelableExtra(NEW_ITEM);
                 wishlists.add(newList);
+                updateUI();
             }
         }
     }

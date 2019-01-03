@@ -44,7 +44,7 @@ public class Wishlist implements Parcelable{
 
     public Wishlist(Parcel in) {
         this.mWishListTitle = in.readString();
-        this.wishlistItems = in.readArrayList(null);
+        this.wishlistItems = in.readArrayList(WishlistItem.class.getClassLoader());
     }
 
     public static final Creator<Wishlist> CREATOR = new Creator<Wishlist>() {

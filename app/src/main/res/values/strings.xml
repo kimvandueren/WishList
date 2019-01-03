@@ -20,6 +20,6 @@
     <string name="add_item_string">Add items</string>
 
     <!--Others-->
-    <string name="list_count"> lists</string>
+    <string name="item_count">%1$d items</string>
 
 </resources>
