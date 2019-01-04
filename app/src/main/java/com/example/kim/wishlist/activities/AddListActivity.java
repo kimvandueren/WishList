@@ -38,6 +38,7 @@ public class AddListActivity extends AppCompatActivity {
     private EditText mNewListItem;
 
     private ImageView addButton;
+    private ImageView removeButton;
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -78,6 +79,7 @@ public class AddListActivity extends AppCompatActivity {
         });
     }
 
+    // Sets adapter to the RecyclerView and updates the UI
     public void updateUI(){
         if (mAdapter == null) {
             mAdapter = new WishlistItemAdapter(this, mWishlistItems);

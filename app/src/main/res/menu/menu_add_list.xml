@@ -4,6 +4,7 @@
 
     <item
         android:id="@+id/action_save"
+        android:icon="@mipmap/round_save_alt_white_48dp"
         android:title="@string/menu_save_list"
         app:showAsAction="always" />
 

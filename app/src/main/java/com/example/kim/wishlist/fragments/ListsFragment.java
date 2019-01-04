@@ -59,7 +59,7 @@ public class ListsFragment extends Fragment {
         super.onCreateOptionsMenu(menu, inflater);
     }
 
-    //Makes options in toolbar menu clickable
+    // Makes options in toolbar menu clickable
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -72,6 +72,7 @@ public class ListsFragment extends Fragment {
         }
     }
 
+    // Sets adapter to the RecyclerView and updates the UI
     private void updateUI(){
         if(wishlistAdapter == null){
             wishlistAdapter = new WishlistAdapter(getActivity(), wishlists);
@@ -81,6 +82,7 @@ public class ListsFragment extends Fragment {
         }
     }
 
+    // Adds item to the list after coming back from AddListActivity
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
