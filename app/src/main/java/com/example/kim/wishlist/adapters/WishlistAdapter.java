@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 
 import com.example.kim.wishlist.R;
 import com.example.kim.wishlist.activities.AddListActivity;
-import com.example.kim.wishlist.activities.MainActivity;
 import com.example.kim.wishlist.fragments.ListsFragment;
 import com.example.kim.wishlist.models.Wishlist;
 import com.example.kim.wishlist.viewholders.WishlistViewHolder;
@@ -39,7 +38,7 @@ public class WishlistAdapter extends RecyclerView.Adapter<WishlistViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull WishlistViewHolder holder, final int i) {
         final Wishlist wishlist = wishlists.get(i);
-        holder.listTitle.setText(wishlist.getmWishListTitle());
+        holder.listTitle.setText(wishlist.getWishListTitle());
         holder.listCount.setText(context.getResources().getString(R.string.item_count, wishlist.getWishlistItems().size()));
         holder.view.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,5 +54,12 @@ public class WishlistAdapter extends RecyclerView.Adapter<WishlistViewHolder> {
     @Override
     public int getItemCount() {
         return wishlists.size();
+    }
+
+    public void swapList (List<Wishlist> newList){
+        wishlists = newList;
+        if (newList != null){
+            this.notifyDataSetChanged();
+        }
     }
 }

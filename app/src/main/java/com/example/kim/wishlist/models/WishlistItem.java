@@ -10,11 +10,11 @@ public class WishlistItem implements Parcelable {
         this.mWishListItem = mWishListItem;
     }
 
-    public String getmWishListItem() {
+    public String getWishListItem() {
         return mWishListItem;
     }
 
-    public void setmWishListItem(String mWishListItem) {
+    public void setWishListItem(String mWishListItem) {
         this.mWishListItem = mWishListItem;
     }
 

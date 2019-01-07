@@ -81,7 +81,7 @@ public class AddListActivity extends AppCompatActivity {
         // Fills the page with data from the intent
         wishlist = getIntent().getParcelableExtra(ListsFragment.NEW_ITEM);
         if (hasExtra(wishlist)){
-            mListTitle.setText(wishlist.getmWishListTitle());
+            mListTitle.setText(wishlist.getWishListTitle());
             mWishlistItems = wishlist.getWishlistItems();
             updateUI();
         }
@@ -112,7 +112,7 @@ public class AddListActivity extends AppCompatActivity {
             case R.id.action_save:
                 Intent intent = new Intent();
                 if (hasExtra(wishlist)) {
-                    wishlist.setmWishListTitle(mListTitle.getText().toString());
+                    wishlist.setWishListTitle(mListTitle.getText().toString());
                     wishlist.setWishlistItems(mWishlistItems);
                     intent.putExtra(ListsFragment.NEW_ITEM, wishlist);
                 } else {

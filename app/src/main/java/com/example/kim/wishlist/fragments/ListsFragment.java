@@ -1,6 +1,7 @@
 package com.example.kim.wishlist.fragments;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -21,6 +22,7 @@ import com.example.kim.wishlist.R;
 import com.example.kim.wishlist.activities.AddListActivity;
 import com.example.kim.wishlist.activities.MainActivity;
 import com.example.kim.wishlist.adapters.WishlistAdapter;
+import com.example.kim.wishlist.data.AppDatabase;
 import com.example.kim.wishlist.models.Wishlist;
 
 import java.util.ArrayList;
@@ -29,6 +31,7 @@ import java.util.List;
 public class ListsFragment extends Fragment {
     private static final String TAG = "Lists";
 
+    // Variables for the recyclerview
     List<Wishlist> wishlists = new ArrayList<>();
     private RecyclerView mRecyclerView;
     private WishlistAdapter wishlistAdapter;
@@ -40,6 +43,14 @@ public class ListsFragment extends Fragment {
     public static final int EDIT_REQUESTCODE = 4321;
     public static int mModifyPosition;
 
+    // Variables for the room database
+    public static AppDatabase db;
+
+    public final static int TASK_GET_ALL_WISHLISTS = 0;
+    public final static int TASK_DELETE_WISHLISTS = 1;
+    public final static int TASK_UPDATE_WISHLISTS = 2;
+    public final static int TASK_INSERT_WISHLISTS = 3;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -50,7 +61,9 @@ public class ListsFragment extends Fragment {
         linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         mRecyclerView.setLayoutManager(linearLayoutManager);
 
-        updateUI();
+        db = AppDatabase.getInstance(getContext());
+
+        new WishlistAsyncTask(TASK_GET_ALL_WISHLISTS).execute();
 
         // ItemTouchHelper to remove Wishlists
         ItemTouchHelper.SimpleCallback simpleItemTouchHelper = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
@@ -61,8 +74,8 @@ public class ListsFragment extends Fragment {
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
                 int position = (viewHolder.getAdapterPosition());
+                new WishlistAsyncTask(TASK_DELETE_WISHLISTS).execute(wishlists.get(position));
                 wishlists.remove(position);
-                wishlistAdapter.notifyItemRemoved(position);
                 updateUI();
             }
         };
@@ -98,7 +111,7 @@ public class ListsFragment extends Fragment {
             wishlistAdapter = new WishlistAdapter(getActivity(), this, wishlists);
             mRecyclerView.setAdapter(wishlistAdapter);
         } else {
-            wishlistAdapter.notifyDataSetChanged();
+            wishlistAdapter.swapList(wishlists);
         }
     }
 
@@ -109,15 +122,49 @@ public class ListsFragment extends Fragment {
         if (requestCode == REQUESTCODE){
             if (resultCode == AddListActivity.RESULT_OK) {
                 Wishlist newList = data.getParcelableExtra(NEW_ITEM);
-                wishlists.add(newList);
-                updateUI();
+                new WishlistAsyncTask(TASK_INSERT_WISHLISTS).execute(newList);
             }
         } else if (requestCode == EDIT_REQUESTCODE){
             if (resultCode == AddListActivity.RESULT_OK){
                 Wishlist updatedList = data.getParcelableExtra(NEW_ITEM);
-                wishlists.set(mModifyPosition, updatedList);
-                updateUI();
+                new WishlistAsyncTask(TASK_UPDATE_WISHLISTS).execute(updatedList);
             }
         }
+    }
+
+    // Asynctask
+    public class WishlistAsyncTask extends AsyncTask<Wishlist, Void, List>{
+        private int taskCode;
+        public WishlistAsyncTask(int taskCode){
+            this.taskCode = taskCode;
+        }
+
+        @Override
+        protected List doInBackground(Wishlist... wishlists) {
+            switch (taskCode){
+                case TASK_DELETE_WISHLISTS:
+                    db.wishlistDao().deleteWishlists(wishlists[0]);
+                    break;
+                case TASK_UPDATE_WISHLISTS:
+                    db.wishlistDao().updateWishlists(wishlists[0]);
+                    break;
+                case TASK_INSERT_WISHLISTS:
+                    db.wishlistDao().insertWishlists(wishlists[0]);
+                    break;
+            }
+            return db.wishlistDao().getAllWishlists();
+        }
+
+        @Override
+        protected void onPostExecute(List list){
+            super.onPostExecute(list);
+            onWishlistDbUpdated(list);
+        }
+    }
+
+    //remove later
+    public void onWishlistDbUpdated(List list){
+        wishlists = list;
+        updateUI();
     }
 }

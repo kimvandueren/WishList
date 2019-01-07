@@ -32,7 +32,7 @@ public class WishlistItemAdapter extends RecyclerView.Adapter<WishlistItemViewHo
     @Override
     public void onBindViewHolder(@NonNull WishlistItemViewHolder holder, final int position) {
         final WishlistItem wishlistItem = wishlistItems.get(position);
-        holder.wishlistItem.setText(wishlistItem.getmWishListItem());
+        holder.wishlistItem.setText(wishlistItem.getWishListItem());
 
         // Button to remove items from the list
         holder.removeButton.setOnClickListener(new View.OnClickListener() {
