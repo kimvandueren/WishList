@@ -21,8 +21,7 @@ public class Wishlist implements Parcelable{
     @TypeConverters(GithubTypeConverter.class)
     private List<WishlistItem> wishlistItems;
 
-    public Wishlist(int id, String mWishListTitle, List<WishlistItem> wishlistItems) {
-        this.id = id;
+    public Wishlist(String mWishListTitle, List<WishlistItem> wishlistItems) {
         this.mWishListTitle = mWishListTitle;
         this.wishlistItems = wishlistItems;
     }
@@ -59,13 +58,11 @@ public class Wishlist implements Parcelable{
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeValue(this.id);
         dest.writeString(this.mWishListTitle);
         dest.writeTypedList(this.wishlistItems);
     }
 
     protected Wishlist(Parcel in) {
-        this.id = (int) in.readValue(int.class.getClassLoader());
         this.mWishListTitle = in.readString();
         this.wishlistItems = in.readArrayList(WishlistItem.class.getClassLoader());
     }

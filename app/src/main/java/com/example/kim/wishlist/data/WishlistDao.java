@@ -1,5 +1,6 @@
 package com.example.kim.wishlist.data;
 
+import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
@@ -13,7 +14,7 @@ import java.util.List;
 @Dao
 public interface WishlistDao {
     @Query("SELECT * FROM wishlist")
-    public List<Wishlist> getAllWishlists();
+    public LiveData<List<Wishlist>> getAllWishlists();
 
     @Insert
     public void insertWishlists(Wishlist wishlist);
