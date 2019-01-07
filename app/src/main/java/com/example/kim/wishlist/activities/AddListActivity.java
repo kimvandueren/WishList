@@ -20,18 +20,17 @@ import com.example.kim.wishlist.R;
 import com.example.kim.wishlist.adapters.WishlistItemAdapter;
 import com.example.kim.wishlist.fragments.ListsFragment;
 import com.example.kim.wishlist.models.Wishlist;
-import com.example.kim.wishlist.models.WishlistItem;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class AddListActivity extends AppCompatActivity {
-    public static WishlistItem wishlistItem;
+    public static String wishlistItem;
     public static Wishlist wishlist;
 
     private Toolbar toolbar;
 
-    private List<WishlistItem> mWishlistItems;
+    private List<String> mWishlistItems;
     private WishlistItemAdapter mAdapter;
     private RecyclerView mRecyclerView;
     private EditText mListTitle;
@@ -66,7 +65,7 @@ public class AddListActivity extends AppCompatActivity {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 String text = mNewListItem.getText().toString();
-                WishlistItem newWishlistItem = new WishlistItem(text);
+                String newWishlistItem = new String(text);
 
                 if (!(TextUtils.isEmpty(text))) {
                     mWishlistItems.add(newWishlistItem);

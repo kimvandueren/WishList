@@ -2,10 +2,7 @@ package com.example.kim.wishlist.fragments;
 
 import android.arch.lifecycle.Observer;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Parcel;
-import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -21,9 +18,7 @@ import android.view.ViewGroup;
 
 import com.example.kim.wishlist.R;
 import com.example.kim.wishlist.activities.AddListActivity;
-import com.example.kim.wishlist.activities.MainActivity;
 import com.example.kim.wishlist.adapters.WishlistAdapter;
-import com.example.kim.wishlist.data.AppDatabase;
 import com.example.kim.wishlist.data.MainViewModel;
 import com.example.kim.wishlist.models.Wishlist;
 
@@ -116,7 +111,7 @@ public class ListsFragment extends Fragment {
         }
     }
 
-    // Adds item to the list after coming back from AddListActivity
+    // Adds and updates item to the list after coming back from AddListActivity
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

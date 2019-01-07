@@ -8,16 +8,15 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.kim.wishlist.R;
-import com.example.kim.wishlist.models.WishlistItem;
 import com.example.kim.wishlist.viewholders.WishlistItemViewHolder;
 
 import java.util.List;
 
 public class WishlistItemAdapter extends RecyclerView.Adapter<WishlistItemViewHolder> {
     private Context context;
-    public List<WishlistItem> wishlistItems;
+    public List<String> wishlistItems;
 
-    public WishlistItemAdapter(Context context, List<WishlistItem> wishlistItems) {
+    public WishlistItemAdapter(Context context, List<String> wishlistItems) {
         this.context = context;
         this.wishlistItems = wishlistItems;
     }
@@ -31,8 +30,8 @@ public class WishlistItemAdapter extends RecyclerView.Adapter<WishlistItemViewHo
 
     @Override
     public void onBindViewHolder(@NonNull WishlistItemViewHolder holder, final int position) {
-        final WishlistItem wishlistItem = wishlistItems.get(position);
-        holder.wishlistItem.setText(wishlistItem.getWishListItem());
+        final String wishlistItem = wishlistItems.get(position);
+        holder.wishlistItem.setText(wishlistItem);
 
         // Button to remove items from the list
         holder.removeButton.setOnClickListener(new View.OnClickListener() {

@@ -2,7 +2,6 @@ package com.example.kim.wishlist.data;
 
 import android.arch.persistence.room.TypeConverter;
 
-import com.example.kim.wishlist.models.WishlistItem;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -14,18 +13,18 @@ public class GithubTypeConverter {
     static Gson gson = new Gson();
 
     @TypeConverter
-    public static List<WishlistItem> stringToWishlistItemList(String data) {
+    public static List<String> stringToWishlistItemList(String data) {
         if (data == null) {
             return Collections.emptyList();
         }
 
-        Type listType = new TypeToken<List<WishlistItem>>() {}.getType();
+        Type listType = new TypeToken<List<String>>() {}.getType();
 
         return gson.fromJson(data, listType);
     }
 
     @TypeConverter
-    public static String wishlistItemListToString(List<WishlistItem> wishlistItems) {
+    public static String wishlistItemListToString(List<String> wishlistItems) {
         return gson.toJson(wishlistItems);
     }
 }
