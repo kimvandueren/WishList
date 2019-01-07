@@ -77,6 +77,14 @@ public class AddListActivity extends AppCompatActivity {
                 return false;
             }
         });
+
+        // Fills the page with data from the intent
+        wishlist = getIntent().getParcelableExtra(ListsFragment.NEW_ITEM);
+        if (hasExtra(wishlist)){
+            mListTitle.setText(wishlist.getmWishListTitle());
+            mWishlistItems = wishlist.getWishlistItems();
+            updateUI();
+        }
     }
 
     // Sets adapter to the RecyclerView and updates the UI
@@ -103,13 +111,28 @@ public class AddListActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.action_save:
                 Intent intent = new Intent();
-                wishlist = new Wishlist(mListTitle.getText().toString(), mWishlistItems);
-                intent.putExtra(ListsFragment.NEW_ITEM, wishlist);
+                if (hasExtra(wishlist)) {
+                    wishlist.setmWishListTitle(mListTitle.getText().toString());
+                    wishlist.setWishlistItems(mWishlistItems);
+                    intent.putExtra(ListsFragment.NEW_ITEM, wishlist);
+                } else {
+                    wishlist = new Wishlist(mListTitle.getText().toString(), mWishlistItems);
+                    intent.putExtra(ListsFragment.NEW_ITEM, wishlist);
+                }
                 setResult(RESULT_OK, intent);
                 finish();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
+        }
+    }
+
+    // Checks if the intent had any extras
+    private boolean hasExtra(Wishlist updateList){
+        if (!(updateList == null)){
+            return true;
+        } else {
+            return false;
         }
     }
 }

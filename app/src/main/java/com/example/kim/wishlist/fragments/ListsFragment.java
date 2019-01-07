@@ -9,6 +9,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -36,6 +37,8 @@ public class ListsFragment extends Fragment {
     // Constants used when calling 'AddListActivity'
     public static final String NEW_ITEM = "Item";
     public static final int REQUESTCODE = 1234;
+    public static final int EDIT_REQUESTCODE = 4321;
+    public static int mModifyPosition;
 
     @Nullable
     @Override
@@ -48,6 +51,23 @@ public class ListsFragment extends Fragment {
         mRecyclerView.setLayoutManager(linearLayoutManager);
 
         updateUI();
+
+        // ItemTouchHelper to remove Wishlists
+        ItemTouchHelper.SimpleCallback simpleItemTouchHelper = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+            @Override
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                return false;
+            }
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
+                int position = (viewHolder.getAdapterPosition());
+                wishlists.remove(position);
+                wishlistAdapter.notifyItemRemoved(position);
+                updateUI();
+            }
+        };
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchHelper);
+        itemTouchHelper.attachToRecyclerView(mRecyclerView);
 
         return view;
     }
@@ -75,7 +95,7 @@ public class ListsFragment extends Fragment {
     // Sets adapter to the RecyclerView and updates the UI
     private void updateUI(){
         if(wishlistAdapter == null){
-            wishlistAdapter = new WishlistAdapter(getActivity(), wishlists);
+            wishlistAdapter = new WishlistAdapter(getActivity(), this, wishlists);
             mRecyclerView.setAdapter(wishlistAdapter);
         } else {
             wishlistAdapter.notifyDataSetChanged();
@@ -90,6 +110,12 @@ public class ListsFragment extends Fragment {
             if (resultCode == AddListActivity.RESULT_OK) {
                 Wishlist newList = data.getParcelableExtra(NEW_ITEM);
                 wishlists.add(newList);
+                updateUI();
+            }
+        } else if (requestCode == EDIT_REQUESTCODE){
+            if (resultCode == AddListActivity.RESULT_OK){
+                Wishlist updatedList = data.getParcelableExtra(NEW_ITEM);
+                wishlists.set(mModifyPosition, updatedList);
                 updateUI();
             }
         }
